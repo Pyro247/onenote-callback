@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+
+            var url = window.location
+            var code = new URLSearchParams(url.search).get("code")
+            console.log(code)
+
+
+            
+        var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+            var urlencoded = new URLSearchParams();
+            urlencoded.append("client_id", "b0593152-ed71-48b5-aad7-486d1ec40bc5");
+            urlencoded.append("scope", "Notes.ReadWrite user.read");
+            urlencoded.append("code", code);
+            urlencoded.append("redirect_uri", "sigue.html");
+            urlencoded.append("grant_type", "authorization_code");
+            urlencoded.append("client_secret", "8368Q~M.3RPK6cPNjmJGT3UsyItKMsAZGHqXwasY");
+
+            var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: urlencoded,
+            redirect: 'follow'
+            };
+
+        fetch("https://login.microsoftonline.com/common/oauth2/v2.0/token", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+
+    </script>
+</body>
+</html>
